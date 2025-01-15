@@ -1,15 +1,17 @@
 from colorama import Fore
 from address_book import AddressBook
+from book_controller import load_data, save_data
 from bot_helper import add_birthday, add_contact, birthdays, change_contact, parse_input, show_all, show_birthday, show_phone
 
 
 def main():
     print(f"{Fore.GREEN}Welcome to the assistant bot!{Fore.RESET}")
-    book = AddressBook()
+    book: AddressBook = load_data()
     while True:
         user_input = input(f"Enter a command: ").strip().lower()
         command, *args = parse_input(user_input)
         if command in ["close", "exit"]:
+            save_data(book)
             print(f"{Fore.YELLOW} Good bye! {Fore.RESET}")
             break
         elif command == "hello":
